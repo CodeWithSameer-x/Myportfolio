@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mohammad Sameer | Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body>
+  <!-- Particle background -->
+  <div id="particles-js"></div>
+  <canvas id="cursorCanvas"></canvas>
+
+  <!-- Theme and Nav Toggle Buttons -->
+  <div class="top-controls">
+    <button id="themeToggle" title="Toggle Theme"><i class="fas fa-adjust"></i></button>
+    <button id="navToggle" title="Toggle Navigation"><i class="fas fa-bars"></i></button>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">Portfolio</div>
+    <ul>
+      <li><a href="#home" class="nav-link">Home</a></li>
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#projects" class="nav-link">Projects</a></li>
+      <li><a href="#certificates" class="nav-link">Certificates</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Home Section -->
+  <section id="home" class="section home-section">
+    <div class="home-content">
+      <p class="welcome-text">Welcome to my Portfolio</p>
+      <h1>Mohammad Sameer Rafiyoddin</h1>
+      <h2><span id="typed-text"></span></h2>
+      <div class="profile-photo">
+        <img src="profile.png" alt="Mohammad Sameer">
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="section">
+    <h2>About Me</h2>
+    <p>I'm a passionate B.Tech CSE student at MIT Aurangabad with a first-year CGPA of 8.81. I specialize in HTML, CSS,
+      C, and Python, with a strong interest in web development and app development. I have worked on 2-3 projects and
+      hold numerous certificates.</p>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="section">
+    <h2>Projects</h2>
+    <div class="card-container">
+      <div class="card project-card">
+        <h3>To-Do List</h3>
+        <p>Description: A web app to manage tasks with add/edit/delete functionality.</p>
+        <p>Skills Used: HTML, CSS, JavaScript.</p>
+        <p>Why Add: You can see my work on GitHub repo link is below.</p>
+        <a href="https://github.com/CodeWithSameer-x/Myproject" target="_blank">View Code</a>
+        <div class="image-slider">
+          <img src="p1.png" alt="To-Do List 1" class="slide">
+          <img src="p2.png" alt="To-Do List 2" class="slide">
+          <img src="p3.png" alt="To-Do List 3" class="slide">
+        </div>
+      </div>
+      <div class="card project-card">
+        <h3>Calculator App</h3>
+        <p>Description: A web-based or desktop calculator with basic operations (addition, subtraction, etc.) and
+          optional advanced features (e.g., scientific functions).</p>
+        <p>Skills Used: HTML, CSS, JavaScript.</p>
+        <p>Why Add: You can see my work on GitHub repo link is below.</p>
+        <a href="https://github.com/CodeWithSameer-x/Myproject" target="_blank">View Code</a>
+        <div class="image-slider">
+          <img src="p4.png" alt="Calculator 1" class="slide">
+          <img src="p5.png" alt="Calculator 2" class="slide">
+          <img src="p6.png" alt="Calculator 3" class="slide">
+        </div>
+      </div>
+      <div class="card project-card">
+        <h3>Stone Paper Scissor</h3>
+        <p>Description: A web-based game implementing the classic Stone Paper Scissor logic with user interaction.</p>
+        <p>Skills Used: HTML, CSS, JavaScript.</p>
+        <p>Why Add: You can see my work on GitHub repo link is below.</p>
+        <a href="https://github.com/CodeWithSameer-x/Myproject" target="_blank">View Code</a>
+        <div class="image-slider">
+          <img src="p7.png" alt="Stone Paper Scissor 1" class="slide">
+          <img src="p8.png" alt="Stone Paper Scissor 2" class="slide">
+          <img src="p9.png" alt="Stone Paper Scissor 3" class="slide">
+        </div>
+      </div>
+      <div class="card project-card">
+        <h3>VIS website</h3>
+        <p>Description: An educational websit showcasing my skills, projects, and certificates with interactive
+          features.</p>
+        <p>Skills Used: HTML, CSS, JavaScript.</p>
+        <p>Why Add: You can see my work on GitHub repo link is below.</p>
+        <a href="https://vision-institue-of-science.netlify.app/" target="_blank">Visit website</a>
+        <div class="image-slider">
+          <img src="p10.png" alt="Portfolio 1" class="slide">
+          <img src="p11.png" alt="Portfolio 2" class="slide">
+          <img src="p12.png" alt="Portfolio 3" class="slide">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certificates Section -->
+  <section id="certificates" class="section">
+    <h2>Certificates</h2>
+    <div class="card-container">
+      <div class="card" onclick="openImage('c1.png')"><img src="c1.png" alt="Certificate 1">
+        <p>I completed the Basics of Python course from Infosys. I learned variables, loops, functions, and solved
+          coding problems with Python.</p>
+
+      </div>
+      <div class="card" onclick="openImage('c2.png')"><img src="c2.png" alt="Certificate 2">
+        <p>I explored Microsoft’s developer tools like VS Code and GitHub, gaining practical skills for collaborative
+          coding.</p>
+
+      </div>
+      <div class="card" onclick="openImage('c3.png')"><img src="c3.png" alt="Certificate 3">
+        <p>This course covered the basics of AI, including machine learning, neural networks, and ethical AI practices.
+        </p>
+
+      </div>
+      <div class="card" onclick="openImage('c4.png')"><img src="c4.png" alt="Certificate 4">
+        <p>I learned to use Azure Machine Learning workspaces, manage datasets, and deploy ML models in the cloud.</p>
+
+      </div>
+      <div class="card" onclick="openImage('c5.png')"><img src="c5.png" alt="Certificate 5">
+        <p>This course introduced me to cybersecurity threats, safe practices, and data protection fundamentals.</p>
+
+      </div>
+      <div class="card" onclick="openImage('c6.png')"><img src="c6.png" alt="Certificate 6">
+        <p>i got certified at mit for being a part of student volunteer.</p>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="section">
+    <h2>Contact Me</h2>
+    <p>We are available for questions, feedback, or collaboration opportunities. Let us know how we can help!</p>
+    <p>You can also contact us at <a href="mailto:mohammadsameer1736@gmail.com">mohammadsameer1736@gmail.com</a></p>
+    <form id="contactForm" action="https://formspree.io/f/xpwlqkpw" method="POST">
+      <input type="text" name="name" placeholder="Name" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="tel" name="phone" placeholder="Phone Number (Optional)">
+
+      <textarea name="message" placeholder="Message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+
+  </section>
+
+  <!-- Footer with social icons -->
+  <footer>
+    <div class="social-icons">
+      <a href="https://github.com/CodeWithSameer-x" target="_blank" title="GitHub">
+        <i class="fab fa-github"></i>
+      </a>
+     <a href="https://www.linkedin.com/in/mohammad-sameer-rafiyoddin-08b01533b" target="_blank" class="icon linkedin">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+
+      <a href="https://www.instagram.com/itz_mohammad_sameer_75" target="_blank" title="Instagram">
+        <i class="fab fa-instagram" style="color: #E1306C;"></i>
+      </a>
+    </div>
+
+  </footer>
+
+  <!-- JS -->
+  <script src="script.js"></script>
+</body>
+
+</html>
