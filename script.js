@@ -146,6 +146,16 @@ if (navToggle && navbar) {
   navToggle.addEventListener("click", () => {
     navbar.classList.toggle("active");
   });
+
+  // Close navbar when a nav link is clicked
+  const navLinks = document.querySelectorAll(".nav-link");
+  navLinks.forEach(link => {
+    link.addEventListener("click", () => {
+      if (navbar.classList.contains("active")) {
+        navbar.classList.remove("active"); // Close navbar on link click
+      }
+    });
+  });
 }
 
 // Highlight active page and update section boundaries
