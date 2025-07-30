@@ -5,7 +5,6 @@ let i = 0, j = 0, currentText = "", isDeleting = false;
 
 function typeEffect() {
   const typedText = document.getElementById("typed-text");
-  if (!typedText) return; // Safety check
   const fullText = roles[i];
   const color = colors[i];
 
@@ -32,14 +31,25 @@ typeEffect();
 
 // Open certificate in new tab
 function openImage(imgSrc) {
-  if (imgSrc) window.open(imgSrc, '_blank');
+  window.open(imgSrc, '_blank');
 }
 
-// Contact form submission
+// Contact form alert
 document.getElementById("contactForm").addEventListener("submit", async function(e) {
-  e.preventDefault();
+  e.preventDefault(); // Prevent default form submission
   const form = e.target;
-  if (!form) return; // Safety check
+  if (!form) return; // Safety check if form element is not found
+
+  // Basic validation
+  const name = form.querySelector('input[name="name"]').value.trim();
+  const email = form.querySelector('input[name="email"]').value.trim();
+  const message = form.querySelector('textarea[name="message"]').value.trim();
+
+  if (!name || !email || !message) {
+    alert("Please fill in all required fields (Name, Email, and Message).");
+    return;
+  }
+
   const formData = new FormData(form);
 
   try {
@@ -52,13 +62,13 @@ document.getElementById("contactForm").addEventListener("submit", async function
     });
 
     if (response.ok) {
-      alert("Your message has been successfully sent to Mohammad Sameer!");
-      form.reset(); // Reset all form fields
+      alert("Thank you! Your message has been successfully sent to Mohammad Sameer.");
+      form.reset(); // Clear the form after successful submission
     } else {
-      alert("There was an error sending your message. Please try again later.");
+      throw new Error("Failed to send message. Please try again later.");
     }
   } catch (error) {
-    alert("Network error. Please check your connection and try again.");
+    alert(error.message || "Network error. Please check your connection and try again.");
     console.error("Form submission error:", error);
   }
 });
@@ -99,6 +109,7 @@ const particlesConfig = {
   retina_detect: true
 };
 
+// Load particles.js
 const script = document.createElement("script");
 script.src = "https://cdn.jsdelivr.net/npm/particles.js";
 script.onload = () => {
@@ -115,71 +126,55 @@ document.head.appendChild(script);
 const themeToggle = document.getElementById("themeToggle");
 let isSimpleTheme = localStorage.getItem("theme") === "simple";
 
-if (themeToggle) {
-  // Apply saved theme on load
-  if (isSimpleTheme) {
-    document.body.classList.add("simple-theme");
-    themeToggle.innerHTML = `<i class="fas fa-sun"></i>`;
-  } else {
-    themeToggle.innerHTML = `<i class="fas fa-adjust"></i>`;
-  }
-
-  themeToggle.addEventListener("click", () => {
-    isSimpleTheme = !isSimpleTheme;
-    document.body.classList.toggle("simple-theme");
-    localStorage.setItem("theme", isSimpleTheme ? "simple" : "animated");
-
-    themeToggle.innerHTML = `<i class="fas ${isSimpleTheme ? 'fa-sun' : 'fa-adjust'}"></i>`;
-
-    if (isSimpleTheme) {
-      particlesJS("particles-js", {}); // Clear particles
-    } else {
-      particlesJS("particles-js", particlesConfig); // Restore particles
-    }
-  });
+// Apply saved theme on load
+if (isSimpleTheme) {
+  document.body.classList.add("simple-theme");
+  themeToggle.innerHTML = `<i class="fas fa-sun"></i>`;
+} else {
+  themeToggle.innerHTML = `<i class="fas fa-adjust"></i>`;
 }
+
+themeToggle.addEventListener("click", () => {
+  isSimpleTheme = !isSimpleTheme;
+  document.body.classList.toggle("simple-theme");
+  localStorage.setItem("theme", isSimpleTheme ? "simple" : "animated");
+
+  themeToggle.innerHTML = `<i class="fas ${isSimpleTheme ? 'fa-sun' : 'fa-adjust'}"></i>`;
+
+  if (isSimpleTheme) {
+    particlesJS("particles-js", {}); // Clear particles
+  } else {
+    particlesJS("particles-js", particlesConfig); // Restore particles
+  }
+});
 
 // Navigation Toggle for Small Screens
 const navToggle = document.getElementById("navToggle");
 const navbar = document.querySelector(".navbar");
-if (navToggle && navbar) {
-  navToggle.addEventListener("click", () => {
-    navbar.classList.toggle("active");
-  });
-
-  // Close navbar when a nav link is clicked
-  const navLinks = document.querySelectorAll(".nav-link");
-  navLinks.forEach(link => {
-    link.addEventListener("click", () => {
-      if (navbar.classList.contains("active")) {
-        navbar.classList.remove("active"); // Close navbar on link click
-      }
-    });
-  });
-}
+navToggle.addEventListener("click", () => {
+  navbar.classList.toggle("active");
+});
 
 // Highlight active page and update section boundaries
 const navLinks = document.querySelectorAll(".nav-link");
-if (navLinks.length > 0) {
-  navLinks.forEach(link => {
-    link.addEventListener("click", () => {
-      navLinks.forEach(l => l.classList.remove("active"));
-      link.classList.add("active");
+navLinks.forEach(link => {
+  link.addEventListener("click", () => {
+    navLinks.forEach(l => l.classList.remove("active"));
+    link.classList.add("active");
 
-      const sectionId = link.getAttribute("href").substring(1);
-      const sections = document.querySelectorAll(".section");
-      sections.forEach(section => {
-        section.style.borderColor = "transparent";
-        section.style.background = "transparent";
-      });
-      const activeSection = document.getElementById(sectionId);
-      if (activeSection) {
-        activeSection.style.borderColor = getComputedStyle(activeSection).borderColor;
-        activeSection.style.background = getComputedStyle(activeSection).backgroundColor;
-      }
+    const sectionId = link.getAttribute("href").substring(1);
+    const sections = document.querySelectorAll(".section");
+    sections.forEach(section => {
+      section.style.borderColor = "transparent";
+      section.style.background = "transparent";
     });
+    const activeSection = document.getElementById(sectionId);
+    if (activeSection) {
+      activeSection.style.borderColor = getComputedStyle(activeSection).borderColor;
+      activeSection.style.background = getComputedStyle(activeSection).backgroundColor;
+    }
   });
-}
+});
 
 // Image Slider for Project Cards
 const sliders = document.querySelectorAll('.image-slider');
@@ -205,71 +200,70 @@ sliders.forEach(slider => {
 
 // Smoky Colorful Cursor Effect
 const canvas = document.getElementById('cursorCanvas');
-if (canvas) {
-  const ctx = canvas.getContext('2d');
+const ctx = canvas.getContext('2d');
 
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+window.addEventListener("resize", () => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+});
 
-  let particles = [];
-  let hue = 0;
+let hue = 0;
 
-  window.addEventListener("resize", () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  });
-
-  document.addEventListener("mousemove", function(e) {
-    if (!isSimpleTheme) {
-      for (let i = 0; i < 5; i++) {
-        particles.push(new Particle(e.x, e.y));
-      }
-    }
-  });
-
-  class Particle {
-    constructor(x, y) {
-      this.x = x;
-      this.y = y;
-      this.size = Math.random() * 5 + 1;
-      this.speedX = Math.random() * 3 - 1.5;
-      this.speedY = Math.random() * 3 - 1.5;
-      this.color = `hsl(${hue}, 100%, 70%)`;
-      this.opacity = 1;
-    }
-
-    update() {
-      this.x += this.speedX;
-      this.y += this.speedY;
-      this.size -= 0.1;
-      this.opacity -= 0.015;
-    }
-
-    draw() {
-      ctx.globalAlpha = this.opacity;
-      ctx.beginPath();
-      ctx.fillStyle = this.color;
-      ctx.shadowColor = this.color;
-      ctx.shadowBlur = 25;
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fill();
+document.addEventListener("mousemove", function(e) {
+  if (!isSimpleTheme) {
+    for (let i = 0; i < 5; i++) {
+      particles.push(new Particle(e.x, e.y));
     }
   }
+});
 
-  function animateParticles() {
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    hue += 2;
-
-    particles.forEach((p, i) => {
-      p.update();
-      p.draw();
-      if (p.size <= 0.3 || p.opacity <= 0) {
-        particles.splice(i, 1);
-      }
-    });
-
-    requestAnimationFrame(animateParticles);
+class Particle {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.size = Math.random() * 5 + 1;
+    this.speedX = Math.random() * 3 - 1.5;
+    this.speedY = Math.random() * 3 - 1.5;
+    this.color = `hsl(${hue}, 100%, 70%)`;
+    this.opacity = 1;
   }
-  animateParticles();
-      }
+
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    this.size -= 0.1;
+    this.opacity -= 0.015;
+  }
+
+  draw() {
+    ctx.globalAlpha = this.opacity;
+    ctx.beginPath();
+    ctx.fillStyle = this.color;
+    ctx.shadowColor = this.color;
+    ctx.shadowBlur = 25;
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function animateParticles() {
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  hue += 2;
+
+  particles.forEach((p, i) => {
+    p.update();
+    p.draw();
+    if (p.size <= 0.3 || p.opacity <= 0) {
+      particles.splice(i, 1);
+    }
+  });
+
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
